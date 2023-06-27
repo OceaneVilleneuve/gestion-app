@@ -1,0 +1,20 @@
+<div class="container">
+  <div>
+    <h1>Projects </h1>
+  </div>
+  <div class="col container-contracts mt-4">
+    <%@projects.each do |project| %>
+      <div class="card" style="width: 400px;">
+      <%= link_to project_path(project), style:"text-decoration: none" do%>
+          <h2>  <%= link_to project.name, project_path(project), class: "", style:"text-decoration: none" %></h2>
+          <p>Description : <%= project.description %></p>
+      <% end %>
+      </div>
+    <%= link_to "Delete",
+      project_path(project),
+      data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}
+    %>
+    <% end %>
+  </div>
+    <%= link_to "Create a new project", new_project_path(),  class: "btn primary", data: { turbo: false }%>
+</div>

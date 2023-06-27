@@ -1,0 +1,13 @@
+<div class="banner-creation-band">
+  <%= simple_form_for(@project) do |f| %>
+
+      <%# name %>
+        <%= f.input :name, label: "name",label_html: { style: "text-shadow: 0px 2px 3px black;" }, placeholder: "project name"%>
+
+      <%# description %>
+        <%= f.input :description, label: "Description",label_html: { style: "text-shadow: 0px 2px 3px black;" }, placeholder: "enter the description"%>
+
+      <%= f.button :submit, "Create the project", label: "new project", placeholder: "new project", class: "btn btn-primary"%>
+    </div>
+  <% end %>
+</div>

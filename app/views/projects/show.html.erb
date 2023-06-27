@@ -1,0 +1,17 @@
+<div class= "container">
+  <h1><%= @project.name %></h1>
+  <%= link_to "Create a new task",  new_project_task_path(@project),  class: "btn primary", data: { turbo: false }%>
+  <div>
+    <% @tasks.each do |task| %>
+      <h3> <%= task.title %></h3>
+      <p> <%= task.description %> </p>
+      <p> <%= task.limit_date %> </p>
+      <p> <%= task.status%> </p>
+      <%= link_to "Delete",
+        task_path(task),
+        data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}
+      %>
+      <%end%>
+  </div>
+  <%=link_to "+ back to menu", projects_path %>
+</div>
