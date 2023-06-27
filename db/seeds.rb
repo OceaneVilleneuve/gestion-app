@@ -5,8 +5,8 @@
 puts "Cleaning database..."
 UserProject.destroy_all
 User.destroy_all
-Project.destroy_all
 Task.destroy_all
+Project.destroy_all
 
 d2 = DateTime.new(2023,11,06)
 d1 = DateTime.new(2023,10,06)
@@ -31,4 +31,4 @@ Task.create!(title: "Contract", description: "Write some conntract for the peopl
   limit_date: d1, status: "done", project: band)
 
 Task.create!(title: "Group call", description: "Call each other to fix our next reunion",
-  limit_date: d2, status: "not done", project: band)
+  limit_date: d2, status: "pending", project: band)

@@ -9,7 +9,7 @@ class TasksController < ApplicationController
     @project = Project.find(params[:project_id])
     @task = Task.new(tasks_params)
     @task.project = @project
-    @task.status = "Pending"
+    @task.status = "pending"
     if @task.save
       redirect_to project_path(@project)
     else

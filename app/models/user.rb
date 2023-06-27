@@ -9,4 +9,6 @@ class User < ApplicationRecord
   has_many :projects, through: :user_projects
   # validation #
   validates :first_name, :last_name, presence: true
+  has_many :tasks_as_task_user, through: :project, source: :tasks, class_name: "Task"
+
 end

@@ -1,17 +1,49 @@
-<div class= "container">
-  <h1><%= @project.name %></h1>
-  <%= link_to "Create a new task",  new_project_task_path(@project),  class: "btn primary", data: { turbo: false }%>
-  <div>
-    <% @tasks.each do |task| %>
-      <h3> <%= task.title %></h3>
-      <p> <%= task.description %> </p>
-      <p> <%= task.limit_date %> </p>
-      <p> <%= task.status%> </p>
-      <%= link_to "Delete",
-        task_path(task),
-        data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}
-      %>
-      <%end%>
+<div>
+  <%= render "shared/back_button" %>
+  <div class= "container pt-4">
+    <div>
+      <h1 class="title-page"><%= @project.name %></h1>
+    </div>
+    <div>
+      <% @tasks.each do |task| %>
+        <div class="d-flex task-container justify-content-between">
+          <div>
+            <h3 class="task-title"> <%= task.title %></h3>
+            <p class="task-description"> <%= task.description %> </p>
+          </div>
+          <div class="d-flex date-status justify-content-around">
+            <p class="deadline"> <%= task.limit_date %> </p>
+            <% if  task.status == "pending" %>
+              <div class="d-flex justify-content-around status-button">
+                <%= simple_form_for [ task] do |f| %>
+                  <%= f.input :status, label: false, input_html: {value: 'in progress', class:"d-none", }%>
+                  <%= f.button :submit, "Take it", class: "btn btn-info" %>
+                <% end %>
+              </div>
+            <%elsif task.status == "in progress" && task.task_user.id != current_user.id %>
+              <div class="d-flex justify-content-around text-info status-button">In progress</div>
+            <% elsif task.status == "in progress" && task.task_user.id == current_user.id %>
+              <div class="d-flex justify-content-around status-button">
+                <%= simple_form_for [task] do |f| %>
+                  <%= f.input :status, label: false, input_html: {value: 'done', class:"d-none", }%>
+                  <%= f.button :submit, "done ?", class: "btn btn-info btn-done" %>
+                <% end %>
+              </div>
+            <%elsif task.status == "done" %>
+              <div class="d-flex justify-content-around text-success status-button">Done</div>
+            <% end %>
+            <%= link_to "Delete",
+              task_path(task),
+              data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}
+            %>
+          </div>
+        </div>
+        <%end%>
+    </div>
+    <div class="mt-5">
+    <%= link_to "New task",  new_project_task_path(@project),  class: "button-task ", data: { turbo: false }%>
+    </div>
   </div>
-  <%=link_to "+ back to menu", projects_path %>
+  <div>
+  </div>
 </div>
