@@ -18,6 +18,16 @@ class TasksController < ApplicationController
     end
   end
 
+  def update
+    @task = Task.find(params[:id])  # Assuming the user ID is passed as a parameter
+    @project = Project.find(params[:project_id])
+    if @task.update(task_params)
+      redirect_to project_path(@project)
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
+
   def destroy
     @task = Task.find(params[:id])
     @task.destroy
